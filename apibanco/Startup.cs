@@ -33,8 +33,16 @@ namespace apibanco
             services.AddControllers();
             services.ConfigurarSwagger();
 
+            
+            // Injeção de dependência dos Repositories
+            services.AddSingleton<IClientRepository, ClientRepository>();
             services.AddSingleton<IAccountRepository, AccountRepository>();
+            
+            // Injeção de dependência dos Services
+            services.AddSingleton<IClientService, ClientService>();
             services.AddSingleton<IAccountService, AccountService>();
+
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
