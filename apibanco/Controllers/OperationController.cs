@@ -13,8 +13,20 @@ namespace apibanco.Controllers
 
         public OperationController() { }
 
+        [HttpPost]
+        public IActionResult MakeOperation()
+        {
+            return Ok();
+        }              
+
+        [HttpPost]
+        public IActionResult MakeTransfer()
+        {
+            return Ok();
+        }
+
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetBalance()
         {
             return Ok();
         }
