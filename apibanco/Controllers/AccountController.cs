@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using apibanco.Interfaces.Service;
+using apibanco.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +14,22 @@ namespace apibanco.Controllers
     public class AccountController : ControllerBase
     {
 
-        public AccountController() { }
+        private readonly IAccountService _service;
 
-        [HttpGet]
-        public IActionResult Get()
+        public AccountController(IAccountService service)
         {
-            return Ok();
+            _service = service;
+        }
+
+        /// <summary>
+        /// Insere uma conta
+        /// <param name="account"></param>        
+        /// /// </summary>
+        [HttpPost]
+        public IActionResult CreateAccount([FromBody] Account account)
+        {
+            _service.InsertAccount(account);
+            return new ObjectResult(string.Empty) { StatusCode = StatusCodes.Status201Created };
         }
     }
 }

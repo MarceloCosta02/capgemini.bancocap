@@ -31,14 +31,15 @@ namespace apibanco
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.ConfigurarSwagger();
-
-            // Injeção de dependência dos Repositories
+            services.ConfigurarSwagger();      
+                       
+            // InjeÃ§Ã£o de dependÃªncia dos Repositories
             services.AddSingleton<IClientRepository, ClientRepository>();
-            services.AddSingleton<IClientRepository, ClientRepository>();
-
-            // Injeção de dependência dos Services
+            services.AddSingleton<IAccountRepository, AccountRepository>();
+            
+            // InjeÃ§Ã£o de dependÃªncia dos Services
             services.AddSingleton<IClientService, ClientService>();
+            services.AddSingleton<IAccountService, AccountService>();
 
             services.AddControllers().AddNewtonsoftJson();
         }

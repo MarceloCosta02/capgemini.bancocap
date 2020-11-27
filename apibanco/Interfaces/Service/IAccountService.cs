@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace apibanco.Interfaces.Service
 {
-    interface IAccountService
+    public interface IAccountService 
     {
         /// <summary>
         /// Metodo para inclusao de Contas no banco de dados
@@ -14,5 +14,12 @@ namespace apibanco.Interfaces.Service
         /// <param name="account"></param>
         /// <returns></returns>
         void InsertAccount(Account account);
+
+        /// <summary>
+        /// Metodo que verifica se o hash existe já no banco
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        bool VerifyIfHashExists(string hash);
     }
 }

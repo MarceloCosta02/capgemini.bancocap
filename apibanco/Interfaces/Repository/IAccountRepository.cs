@@ -13,6 +13,13 @@ namespace apibanco.Interfaces.Repository
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
-        void Insert(Account account);        
+        void Insert(Account account);
+
+        /// <summary>
+        /// Metodo que verifica se o hash existe já no banco
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        int VerifyIfHashExists(string hash);
     }
 }
