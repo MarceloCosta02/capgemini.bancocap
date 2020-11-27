@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using apibanco.Configuration;
+using apibanco.Interfaces.Repository;
+using apibanco.Interfaces.Service;
+using apibanco.Repository;
+using apibanco.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +32,9 @@ namespace apibanco
         {
             services.AddControllers();
             services.ConfigurarSwagger();
+
+            services.AddSingleton<IAccountRepository, AccountRepository>();
+            services.AddSingleton<IAccountService, AccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
