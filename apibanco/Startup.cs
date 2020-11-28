@@ -36,10 +36,12 @@ namespace apibanco
             // Injeção de dependência dos Repositories
             services.AddSingleton<IClientRepository, ClientRepository>();
             services.AddSingleton<IAccountRepository, AccountRepository>();
+            services.AddSingleton<IOperationRepository, OperationRepository>();
             
             // Injeção de dependência dos Services
             services.AddSingleton<IClientService, ClientService>();
             services.AddSingleton<IAccountService, AccountService>();
+            services.AddSingleton<IOperationService, OperationService>();
 
             services.AddControllers().AddNewtonsoftJson();
         }

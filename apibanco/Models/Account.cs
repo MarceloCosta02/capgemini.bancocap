@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace apibanco.Models
 {
@@ -10,7 +6,12 @@ namespace apibanco.Models
     { 
         [JsonIgnore]
         public string Hash { get; set; }
-
         public int IdCliente { get; set; }
+
+        public Account(string hash, int idCliente)
+        {
+            Hash = hash;
+            IdCliente = idCliente;
+        }
     }
 }

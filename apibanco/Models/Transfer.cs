@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace apibanco.Models
+﻿namespace apibanco.Models
 {
     public class Transfer
     {
@@ -11,5 +6,11 @@ namespace apibanco.Models
         public string HashDestiny { get; set; }
         public double Value { get; set; }
 
+        public Transfer(string hashOrigin, string hashDestiny, double value)
+        {
+            HashOrigin = hashOrigin;
+            HashDestiny = hashDestiny;
+            Value = value;
+        }
     }
 }

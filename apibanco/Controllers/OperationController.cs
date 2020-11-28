@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using apibanco.Interfaces.Service;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace apibanco.Controllers
 {
@@ -10,23 +9,35 @@ namespace apibanco.Controllers
     [Route("api/[controller]")]
     public class OperationController : ControllerBase
     {
+        private readonly IOperationService _service;
 
-        public OperationController() { }
-
-        [HttpPost]
-        public IActionResult MakeOperation()
+        public OperationController(IOperationService service)
         {
-            return Ok();
-        }              
+            _service = service;
+        }
 
-        [HttpPost]
-        public IActionResult MakeTransfer()
+        [HttpGet]
+        public IActionResult GetBalance([FromQuery] string hash)
+        {
+            try
+            {
+                var value = _service.GetByHash(hash);
+                return new ObjectResult(value) { StatusCode = StatusCodes.Status200OK };
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("MakeOperation")]
+        public IActionResult MakeOperation()
         {
             return Ok();
         }
 
-        [HttpGet]
-        public IActionResult GetBalance()
+        [HttpPost("MakeTransfer")]
+        public IActionResult MakeTransfer()
         {
             return Ok();
         }
