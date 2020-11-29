@@ -33,6 +33,35 @@ namespace apibanco.Repository
                                                     FROM OPERACAO").FirstOrDefault();
             return query.ToString();
         }
+
+        public void InsertOperation(Operation operation)
+        {
+            var connection = new SqlConnection(_connectionString);
+
+            var query = "insert into operacao (DataHora, Valor, Tipo, IdContaOrigem, IdContaDestino) " +
+                            "values (@DataHora, @Valor, @Tipo, @IdContaOrigem, @IdContaDestino)";
+
+            var result = connection.Execute(query, new
+            {
+                DataHora = operation.DataHora,
+                Valor = operation.Value,
+                Tipo = operation.Type,
+                IdContaOrigem = operation.IdContaOrigem,
+                IdContaDestino = operation.IdContaDestino
+            });
+        }             
+
+        public int GetIdAccountByHash(string hash)
+        {
+            var connection = new SqlConnection(_connectionString);
+
+            var query = "select Id from conta " +
+                            " where Hash = @Hash";
+
+            var result = connection.Query<int>(query, new { Hash = hash });
+
+            return result.FirstOrDefault();
+        }       
     }
 }
 
