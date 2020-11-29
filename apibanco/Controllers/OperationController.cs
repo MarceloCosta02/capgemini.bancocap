@@ -1,4 +1,5 @@
 ﻿using apibanco.Interfaces.Service;
+using apibanco.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,6 +17,14 @@ namespace apibanco.Controllers
             _service = service;
         }
 
+        // GET
+        /// <summary>
+        /// Lista o resultado do consolidado das operações
+        /// </summary>
+        /// <param name="hash"></param>/>   
+        /// <returns>Um novo item criado</returns>
+        /// <response code="200">Retorna o valor consolidado</response>
+        /// <response code="400">Se ocorrer algum erro no hash informado</response>  
         [HttpGet]
         public IActionResult GetBalance([FromQuery] string hash)
         {
@@ -30,16 +39,55 @@ namespace apibanco.Controllers
             }
         }
 
+        // POST api/MakeOperation
+        /// <summary>
+        /// Realiza a operação de deposito ou saque
+        /// </summary>
+        /// <param name="operation"></param>/>
+        /// <param name="hash"></param>/>
+        /// <remarks>
+        /// Observação:       
+        /// No campo Type são aceitos 'D' para operações de depósito e 'S' para operações de saque      
+        /// </remarks> 
+        /// <returns>Um novo item criado</returns>
+        /// <response code="201">Retorna que a operação foi criada</response>
+        /// <response code="400">Se a operação não for criada</response>  
         [HttpPost("MakeOperation")]
-        public IActionResult MakeOperation()
+        public IActionResult MakeOperation([FromBody] Operation operation, [FromQuery] string hash)
         {
-            return Ok();
+            try
+            {
+                _service.MakeOperations(operation, hash);
+                return new ObjectResult("") { StatusCode = StatusCodes.Status201Created };
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
+        // POST api/MakeTransfer
+        /// <summary>
+        /// Realiza a operação de transferência
+        /// </summary>
+        /// <param name="operation"></param>/>
+        /// <param name="hashOrigin"></param>/>
+        /// <param name="hashDestiny"></param>/> 
+        /// <returns>Transferência entre contas criada</returns>
+        /// <response code="201">Retorna que a transferência foi criada</response>
+        /// <response code="400">Se a transferência não for criada</response>  
         [HttpPost("MakeTransfer")]
-        public IActionResult MakeTransfer()
+        public IActionResult MakeTransfer([FromBody] Operation operation, [FromQuery] string hashOrigin, [FromQuery] string hashDestiny)
         {
-            return Ok();
+            try
+            {
+                _service.MakeTransfer(operation, hashOrigin, hashDestiny);
+                return new ObjectResult("") { StatusCode = StatusCodes.Status201Created };
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
     }
 }
