@@ -19,7 +19,7 @@ namespace apibanco.Repository
         }
 
         /// <summary>
-        /// Incluindo o cliente no banco
+        /// Metodo para inclusao clientes no banco de dados
         /// </summary>
         /// <param name="client"></param>
         public void Insert(Client client)

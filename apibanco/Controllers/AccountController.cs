@@ -21,10 +21,14 @@ namespace apibanco.Controllers
             _service = service;
         }
 
+        // POST 
         /// <summary>
         /// Insere uma conta
-        /// <param name="account"></param>        
-        /// /// </summary>
+        /// </summary>
+        /// <param name="account"></param>/> 
+        /// <returns>Uma nova conta criada</returns>
+        /// <response code="201">Retorna que a conta foi criada</response>
+        /// <response code="400">Se a conta não for criada</response>  
         [HttpPost]
         public IActionResult CreateAccount([FromBody] Account account)
         {

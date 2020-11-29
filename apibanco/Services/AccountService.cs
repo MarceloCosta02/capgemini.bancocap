@@ -20,6 +20,10 @@ namespace apibanco.Services
             _repo = repo;
         }
 
+        /// <summary>
+        /// Metodo para inclusao de Contas no banco de dados
+        /// </summary>
+        /// <param name="account"></param>
         public void InsertAccount(Account account)
         {
             bool validateHash = false;
@@ -38,8 +42,7 @@ namespace apibanco.Services
         /// <summary>
         /// Metodo que verifica se o hash existe já no banco
         /// </summary>
-        /// <param name="account"></param>
-        /// <returns></returns>
+        /// <param name="hash"></param>
         public bool VerifyIfHashExists(string hash)
         {
             var exists = _repo.VerifyIfHashExists(hash);
@@ -49,6 +52,9 @@ namespace apibanco.Services
                 return false;
         }
 
+        /// <summary>
+        /// Metodo que gera o hash da conta
+        /// </summary>
         private string GenerateHash()
         {
             var chars = "ABCDEFGHIJKLMNOPQRSTUWXYZ123456789";

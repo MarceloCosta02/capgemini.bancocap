@@ -16,11 +16,22 @@ namespace apibanco.Services
         {
             _repository = repository;
         }
+
+        /// <summary>
+        /// Metodo que verifica se o hash existe já no banco
+        /// </summary>
+        /// <param name="hash"></param>
         public string GetByHash(string hash)
         {
             return _repository.GetByHash(hash);
         }
 
+
+        /// <summary>
+        /// Metodo que realiza as operações de deposito e saque
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="hash"></param>
         public void MakeOperations(Operation operation, string hash)
         {
             int idAccount = _repository.GetIdAccountByHash(hash);
@@ -30,6 +41,12 @@ namespace apibanco.Services
             _repository.InsertOperation(newOperation);
         }
 
+        /// <summary>
+        /// Metodo que realiza a operação de transferência
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="hashOrigin"></param>
+        /// <param name="hashDestiny"></param>
         public void MakeTransfer(Operation operation, string hashOrigin, string hashDestiny)
         {
             int idAccountOrigin = _repository.GetIdAccountByHash(hashOrigin);

@@ -18,6 +18,10 @@ namespace apibanco.Repository
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
+        /// <summary>
+        /// Metodo que verifica se o hash já existe
+        /// </summary>
+        /// <param name="hash"></param>
         public string GetByHash(string hash)
         {
             var connection = new SqlConnection(_connectionString);
@@ -34,6 +38,10 @@ namespace apibanco.Repository
             return query.ToString();
         }
 
+        /// <summary>
+        /// Metodo que insere os depositos, saques e transferências no banco
+        /// </summary>
+        /// <param name="operation"></param>
         public void InsertOperation(Operation operation)
         {
             var connection = new SqlConnection(_connectionString);
@@ -49,8 +57,12 @@ namespace apibanco.Repository
                 IdContaOrigem = operation.IdContaOrigem,
                 IdContaDestino = operation.IdContaDestino
             });
-        }             
+        }
 
+        /// <summary>
+        /// Metodo que recupera o IdAccount a partir do hash informado
+        /// </summary>
+        /// <param name="hash"></param>
         public int GetIdAccountByHash(string hash)
         {
             var connection = new SqlConnection(_connectionString);

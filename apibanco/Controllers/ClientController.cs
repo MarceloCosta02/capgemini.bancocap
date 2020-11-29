@@ -21,11 +21,14 @@ namespace apibanco.Controllers
             _service = service;
         }
 
+        // POST 
         /// <summary>
-        /// Inserindo Cliente no banco
+        /// Insere clientes no banco
         /// </summary>
-        /// <param name="client"></param>
-        /// <returns></returns>
+        /// <param name="client"></param>/> 
+        /// <returns>Um novo cliente criado</returns>
+        /// <response code="201">Retorna que o cliente foi criado</response>
+        /// <response code="400">Se o cliente não for criado</response>  
         [HttpPost]
         public IActionResult CreateClient([FromBody] Client client)
         {

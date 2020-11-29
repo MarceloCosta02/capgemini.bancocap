@@ -23,7 +23,6 @@ namespace apibanco.Repository
         /// Metodo para inclusao de Contas no banco de dados
         /// </summary>
         /// <param name="account"></param>
-        /// <returns></returns>
         public void Insert(Account account)
         {
             var connection = new SqlConnection(_connectionString);
@@ -38,6 +37,10 @@ namespace apibanco.Repository
             });
         }
 
+        /// <summary>
+        /// Metodo que verifica se o hash existe já no banco
+        /// </summary>
+        /// <param name="hash"></param>
         public int VerifyIfHashExists(string hash)
         {
             var connection = new SqlConnection(_connectionString);

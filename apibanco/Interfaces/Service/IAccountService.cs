@@ -12,14 +12,12 @@ namespace apibanco.Interfaces.Service
         /// Metodo para inclusao de Contas no banco de dados
         /// </summary>
         /// <param name="account"></param>
-        /// <returns></returns>
         void InsertAccount(Account account);
 
         /// <summary>
         /// Metodo que verifica se o hash existe já no banco
         /// </summary>
-        /// <param name="account"></param>
-        /// <returns></returns>
+        /// <param name="hash"></param>
         bool VerifyIfHashExists(string hash);
     }
 }

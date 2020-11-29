@@ -13,6 +13,10 @@ namespace apibanco.Services
             _repository = repository;
         }
 
+        /// <summary>
+        /// Metodo que insere clientes no banco
+        /// </summary>
+        /// <param name="client"></param>
         public void InsertClient(Client client)
         {
             _repository.Insert(client);
