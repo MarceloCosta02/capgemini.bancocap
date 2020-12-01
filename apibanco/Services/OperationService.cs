@@ -1,20 +1,25 @@
-﻿using apibanco.Interfaces.Repository;
+﻿using apibanco.DTO;
+using apibanco.Interfaces.Repository;
 using apibanco.Interfaces.Service;
 using apibanco.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace apibanco.Services
 {
     public class OperationService : IOperationService
     {
         private readonly IOperationRepository _repository;
+        private readonly IAccountRepository _accRepository;
 
-        public OperationService(IOperationRepository repository)
+        public OperationService(IOperationRepository repository, IAccountRepository accRepository)
         {
             _repository = repository;
+            _accRepository = accRepository;
         }
 
         /// <summary>
@@ -44,17 +49,26 @@ namespace apibanco.Services
         /// <summary>
         /// Metodo que realiza a operação de transferência
         /// </summary>
-        /// <param name="operation"></param>
-        /// <param name="hashOrigin"></param>
-        /// <param name="hashDestiny"></param>
-        public void MakeTransfer(Operation operation, string hashOrigin, string hashDestiny)
+        /// <param name="transfer"></param>
+        public TransferResponseDTO MakeTransfer(Transfer transfer)
         {
-            int idAccountOrigin = _repository.GetIdAccountByHash(hashOrigin);
-            int idAccountDestiny = _repository.GetIdAccountByHash(hashDestiny);
+            var resultHashClient = _accRepository.VerifyIfHashExists(transfer.Hash);
+            var resultHashBank = _accRepository.VerifyIfHashExists(transfer.HashBank);
 
-            var newOperation = SetTransferValues(operation, idAccountOrigin, idAccountDestiny);
+            if (resultHashBank == 0)            
+                throw new Exception("O Hash do Banco não está cadastrado");            
+            if (resultHashClient == 0)            
+                throw new Exception("O Hash do Cliente não está cadastrado");            
+            else
+            {
+                int idAccountOrigin = _repository.GetIdAccountByHash(transfer.Hash);
+                int idAccountDestiny = _repository.GetIdAccountByHash(transfer.HashBank);
 
-            _repository.InsertOperation(newOperation);
+                var newOperation = SetTransferValues(transfer, idAccountOrigin, idAccountDestiny);
+
+                _repository.InsertOperation(newOperation);
+                return new TransferResponseDTO("Transferência realizada", "201");
+            }        
         }
 
         private Operation SetOperationValues(Operation operation, int idAccount)
@@ -78,13 +92,9 @@ namespace apibanco.Services
                 throw new Exception($" {operation.Type} não é um tipo de operação válido, favor indicar D para Depósito e S para Saque");
         }
 
-        private Operation SetTransferValues(Operation operation, int idAccountOrigin, int idAccountDestiny)
+        private Operation SetTransferValues(Transfer transfer, int idAccountOrigin, int idAccountDestiny)
         {
-            operation.DataHora = DateTime.Now;
-            operation.IdContaDestino = idAccountDestiny;
-            operation.IdContaOrigem = idAccountOrigin;
-            operation.Type = 'T';
-            operation.DataHora = DateTime.Now;
+            Operation operation = new Operation('T', transfer.TotalValue, DateTime.Now, idAccountOrigin, idAccountDestiny);          
             return operation;
         }
     }

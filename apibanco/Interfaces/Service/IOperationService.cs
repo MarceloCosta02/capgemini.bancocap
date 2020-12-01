@@ -1,4 +1,5 @@
-﻿using apibanco.Models;
+﻿using apibanco.DTO;
+using apibanco.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,7 @@ namespace apibanco.Interfaces.Service
         /// <summary>
         /// Metodo que realiza a operação de transferência
         /// </summary>
-        /// <param name="operation"></param>
-        /// <param name="hashOrigin"></param>
-        /// <param name="hashDestiny"></param>
-        void MakeTransfer(Operation operation, string hashOrigin, string hashDestiny);
+        /// <param name="transfer"></param>  
+        TransferResponseDTO MakeTransfer(Transfer transfer);
     }
 }

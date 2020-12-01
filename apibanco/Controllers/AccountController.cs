@@ -32,8 +32,8 @@ namespace apibanco.Controllers
         [HttpPost]
         public IActionResult CreateAccount([FromBody] Account account)
         {
-            _service.InsertAccount(account);
-            return new ObjectResult(string.Empty) { StatusCode = StatusCodes.Status201Created };
+            var response = _service.InsertAccount(account);
+            return new ObjectResult(response) { StatusCode = StatusCodes.Status201Created };
         }
     }
 }

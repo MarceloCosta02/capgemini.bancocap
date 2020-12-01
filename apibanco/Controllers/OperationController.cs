@@ -1,8 +1,10 @@
-﻿using apibanco.Interfaces.Service;
+﻿using apibanco.DTO;
+using apibanco.Interfaces.Service;
 using apibanco.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 
 namespace apibanco.Controllers
 {
@@ -70,19 +72,17 @@ namespace apibanco.Controllers
         /// <summary>
         /// Realiza a operação de transferência
         /// </summary>
-        /// <param name="operation"></param>/>
-        /// <param name="hashOrigin"></param>/>
-        /// <param name="hashDestiny"></param>/> 
+        /// <param name="transfer"></param>/>   
         /// <returns>Transferência entre contas criada</returns>
         /// <response code="201">Retorna que a transferência foi criada</response>
         /// <response code="400">Se a transferência não for criada</response>  
         [HttpPost("MakeTransfer")]
-        public IActionResult MakeTransfer([FromBody] Operation operation, [FromQuery] string hashOrigin, [FromQuery] string hashDestiny)
+        public IActionResult MakeTransfer([FromBody] Transfer transfer)
         {
             try
             {
-                _service.MakeTransfer(operation, hashOrigin, hashDestiny);
-                return new ObjectResult("") { StatusCode = StatusCodes.Status201Created };
+                var response = _service.MakeTransfer(transfer);
+                return new ObjectResult(response) { StatusCode = StatusCodes.Status201Created };
             }
             catch (Exception ex)
             {

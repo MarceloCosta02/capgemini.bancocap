@@ -24,7 +24,7 @@ namespace apibanco.Services
         /// Metodo para inclusao de Contas no banco de dados
         /// </summary>
         /// <param name="account"></param>
-        public void InsertAccount(Account account)
+        public string InsertAccount(Account account)
         {
             bool validateHash = false;
             string hash = "";
@@ -37,6 +37,8 @@ namespace apibanco.Services
 
             account.Hash = hash;
             _repo.Insert(account);
+
+            return $"Código Hash {hash} criado com sucesso";
         }
 
         /// <summary>
