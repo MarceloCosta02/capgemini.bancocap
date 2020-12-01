@@ -82,7 +82,7 @@ namespace apibanco.Controllers
             try
             {
                 var response = _service.MakeTransfer(transfer);
-                return new ObjectResult(response) { StatusCode = StatusCodes.Status201Created };
+                return new ObjectResult(response) { StatusCode = response.Status };
             }
             catch (Exception ex)
             {

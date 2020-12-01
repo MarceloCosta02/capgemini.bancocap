@@ -7,13 +7,13 @@ namespace apibanco.DTO
 {
     public class TransferResponseDTO
     {
-        public TransferResponseDTO(string message, string status)
+        public TransferResponseDTO(string message, int status)
         {
             Message = message;
             Status = status;
         }
 
         public string Message { get; set; }
-        public string Status { get; set; }
+        public int Status { get; set; }
     }
 }

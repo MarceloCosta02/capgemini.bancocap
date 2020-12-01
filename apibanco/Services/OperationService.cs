@@ -56,9 +56,9 @@ namespace apibanco.Services
             var resultHashBank = _accRepository.VerifyIfHashExists(transfer.HashBank);
 
             if (resultHashBank == 0)            
-                throw new Exception("O Hash do Banco não está cadastrado");            
-            if (resultHashClient == 0)            
-                throw new Exception("O Hash do Cliente não está cadastrado");            
+                return new TransferResponseDTO("O Hash do Banco não está cadastrado", 404);           
+            if (resultHashClient == 0)
+                return new TransferResponseDTO("O Hash do Cliente não está cadastrado", 404);
             else
             {
                 int idAccountOrigin = _repository.GetIdAccountByHash(transfer.Hash);
@@ -67,7 +67,7 @@ namespace apibanco.Services
                 var newOperation = SetTransferValues(transfer, idAccountOrigin, idAccountDestiny);
 
                 _repository.InsertOperation(newOperation);
-                return new TransferResponseDTO("Transferência realizada", "201");
+                return new TransferResponseDTO("Transferência realizada", 201);
             }        
         }
 
