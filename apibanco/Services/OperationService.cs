@@ -67,7 +67,7 @@ namespace apibanco.Services
                 var newOperation = SetTransferValues(transfer, idAccountOrigin, idAccountDestiny);
 
                 _repository.InsertOperation(newOperation);
-                return new TransferResponseDTO("Transferência realizada", 201);
+                return new TransferResponseDTO("Transferência realizada", 200);
             }        
         }
 
