@@ -1,9 +1,5 @@
 ﻿using apibanco.DTO;
 using apibanco.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace apibanco.Interfaces.Service
 {
@@ -26,6 +22,6 @@ namespace apibanco.Interfaces.Service
         /// Metodo que realiza a operação de transferência
         /// </summary>
         /// <param name="transfer"></param>  
-        TransferResponseDTO MakeTransfer(Transfer transfer);
+        TransferResponseDto MakeTransfer(Transfer transfer);
     }
 }

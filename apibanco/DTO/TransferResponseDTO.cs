@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace apibanco.DTO
+﻿namespace apibanco.DTO
 {
-    public class TransferResponseDTO
+    public class TransferResponseDto
     {
-        public TransferResponseDTO(string message, int status)
+        public TransferResponseDto(string message, int status)
         {
             Message = message;
             Status = status;

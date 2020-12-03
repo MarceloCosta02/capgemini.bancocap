@@ -2,11 +2,7 @@
 using apibanco.Models;
 using Dapper;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace apibanco.Repository
 {
@@ -29,7 +25,7 @@ namespace apibanco.Repository
             var query = @"INSERT INTO [Cliente] ([Nome],[CPF])
                                 VALUES (@Nome, @CPF)";
 
-            var result = connection.Execute(query, new
+            connection.Execute(query, new
             {
                 Nome = client.Nome,
                 CPF = client.CPF

@@ -1,10 +1,8 @@
-﻿using apibanco.DTO;
-using apibanco.Interfaces.Service;
+﻿using apibanco.Interfaces.Service;
 using apibanco.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Net;
 
 namespace apibanco.Controllers
 {

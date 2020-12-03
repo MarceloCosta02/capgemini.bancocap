@@ -3,11 +3,6 @@ using apibanco.Interfaces.Repository;
 using apibanco.Interfaces.Service;
 using apibanco.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
 
 namespace apibanco.Services
 {
@@ -50,15 +45,15 @@ namespace apibanco.Services
         /// Metodo que realiza a operação de transferência
         /// </summary>
         /// <param name="transfer"></param>
-        public TransferResponseDTO MakeTransfer(Transfer transfer)
+        public TransferResponseDto MakeTransfer(Transfer transfer)
         {
             var resultHashClient = _accRepository.VerifyIfHashExists(transfer.Hash);
             var resultHashBank = _accRepository.VerifyIfHashExists(transfer.HashBank);
 
             if (resultHashBank == 0)            
-                return new TransferResponseDTO("O Hash do Banco não está cadastrado", 404);           
+                return new TransferResponseDto("O Hash do Banco não está cadastrado", 404);           
             if (resultHashClient == 0)
-                return new TransferResponseDTO("O Hash do Cliente não está cadastrado", 404);
+                return new TransferResponseDto("O Hash do Cliente não está cadastrado", 404);
             else
             {
                 int idAccountOrigin = _repository.GetIdAccountByHash(transfer.Hash);
@@ -67,7 +62,7 @@ namespace apibanco.Services
                 var newOperation = SetTransferValues(transfer, idAccountOrigin, idAccountDestiny);
 
                 _repository.InsertOperation(newOperation);
-                return new TransferResponseDTO("Transferência realizada", 200);
+                return new TransferResponseDto("Transferência realizada", 200);
             }        
         }
 
@@ -89,7 +84,7 @@ namespace apibanco.Services
                 return operation;
             }          
             else
-                throw new Exception($" {operation.Type} não é um tipo de operação válido, favor indicar D para Depósito e S para Saque");
+                throw new ArgumentNullException("operation.Type", $" {operation.Type} não é um tipo de operação válido, favor indicar D para Depósito e S para Saque");
         }
 
         private Operation SetTransferValues(Transfer transfer, int idAccountOrigin, int idAccountDestiny)

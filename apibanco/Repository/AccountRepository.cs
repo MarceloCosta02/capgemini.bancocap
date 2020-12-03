@@ -2,11 +2,8 @@
 using apibanco.Models;
 using Dapper;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace apibanco.Repository
 {
@@ -30,7 +27,7 @@ namespace apibanco.Repository
             var query = "insert into conta (Hash, IdCliente) " +
                             "values (@Hash, @IdCliente)";
 
-            var result = connection.Execute(query, new
+            connection.Execute(query, new
             {
                 Hash = account.Hash,
                 IdCliente = account.IdCliente

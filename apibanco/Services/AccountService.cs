@@ -1,13 +1,8 @@
 ﻿using apibanco.Interfaces.Repository;
 using apibanco.Interfaces.Service;
 using apibanco.Models;
-using Dapper;
-using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace apibanco.Services
 {
@@ -29,7 +24,7 @@ namespace apibanco.Services
             bool validateHash = false;
             string hash = "";
 
-            while (validateHash == false)
+            while (!validateHash)
             {
                 hash = GenerateHash();
                 validateHash = VerifyIfHashExists(hash);
